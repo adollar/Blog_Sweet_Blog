@@ -22,7 +22,7 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, unique=true)
      */
     private $name;
 
@@ -48,10 +48,12 @@ class User
     /**
      * @param array $posts
      *
-     * @return ArrayCollection
+     * @return User 
      */
-    public function setPosts(array $posts): ArrayCollection {
+    public function setPosts(array $posts): User {
         $this->posts = $posts;
+        
+        return $this;
     }
 
    
