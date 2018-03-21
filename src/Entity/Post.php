@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Post
 {
@@ -31,6 +33,29 @@ class Post
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @return DateTimeInterface 
+     */
+    public function getCreatedAt(): ?DateTimeInterface {
+        return $this->createdAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     *
+     * @return Post
+     */
+    public function setCreatedAt(): Post {
+        $this->createdAt = new \DateTime();
+        
+        return $this;
+    }
 
     public function getId()
     {
