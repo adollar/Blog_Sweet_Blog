@@ -4,7 +4,7 @@ security:
             algorithm: bcrypt
             
     providers:
-            our_db_provider:
+            db_provider:
                 entity:
                     class: App\Entity\User
                     property: username
@@ -15,10 +15,14 @@ security:
             security: false
         main:
             anonymous: ~
+            provider: db_provider
             form_login:
                 login_path: login
                 check_path: login 
+            logout:
+                path: logout
+                target: homepage
 
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/profile, roles: ROLE_USER }

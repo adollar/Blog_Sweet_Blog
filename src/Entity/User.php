@@ -48,6 +48,13 @@
         private $posts;
 
         /**
+         * @var array
+         *
+         * @ORM\Column(type="json")
+         */
+        private $roles = [];
+
+        /**
          * @ORM\Column(type="datetime")
          */
         private $createdAt;
@@ -59,6 +66,16 @@
         {
             $this->posts    = new ArrayCollection();
             $this->isActive = true;
+        }
+
+        public function getRoles(): array
+        {
+            return $this->roles;
+        }
+
+        public function setRoles(array $roles): void
+        {
+            $this->roles = $roles;
         }
 
         /**
@@ -140,11 +157,6 @@
             return $this;
         }
 
-        public function getRoles(): array
-        {
-            return ['ROLE_USER'];
-        }
-
         public function getPassword(): string
         {
             return $this->password;
@@ -172,16 +184,14 @@
         {
         }
 
-        public function serialize(): string 
+        public function serialize(): string
         {
-            return serialize(
-                [
-                    $this->id,
-                    $this->username,
-                    $this->password,
+            return serialize([
+                $this->id,
+                $this->username,
+                $this->password,
 
-                ]
-            );
+            ]);
         }
 
         public function unserialize($serialized)

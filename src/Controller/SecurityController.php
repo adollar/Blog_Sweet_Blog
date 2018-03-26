@@ -30,4 +30,11 @@
                 ]
             );
         }
+
+        /**
+         * @Route("/logout", name="logout")
+         */
+        public function logout()
+        {
+        }
     }

@@ -19,11 +19,23 @@
         public function load(ObjectManager $manager)
         {
             $user = new User();
+            $user->setUsername('user');
+
+            $password = $this->encoder->encodePassword($user, 'password');
+            $user->setPassword($password);
+            $user->setEmail('user@gmail.com');
+            $user->setRoles(['ROLE_USER']);
+
+            $manager->persist($user);
+            $manager->flush();    
+            
+            $user = new User();
             $user->setUsername('admin');
 
             $password = $this->encoder->encodePassword($user, 'password');
             $user->setPassword($password);
             $user->setEmail('antony.hopkins008@gmail.com');
+            $user->setRoles(['ROLE_ADMIN']);
 
             $manager->persist($user);
             $manager->flush();
